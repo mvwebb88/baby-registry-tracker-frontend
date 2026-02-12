@@ -1,89 +1,75 @@
-const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/hoots`
+// src/services/hootService.js
+// NOTE: This service now talks to /items (baby registry backend)
 
+const SERVER_URL = import.meta.env.VITE_BACK_END_SERVER_URL;
+const BASE_URL = `${SERVER_URL}/items`;
+
+// Always include JWT token
+const authHeaders = () => ({
+  Authorization: `Bearer ${localStorage.getItem("token")}`,
+});
+
+// --------------------
+// GET ALL ITEMS
+// --------------------
 const index = async () => {
-    try {
-        const res = await fetch(BASE_URL, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`,
-            },
-        })
-        return res.json()
-    } catch (err) {
-        console.log(err)
-    }
-}
+  try {
+    const res = await fetch(BASE_URL, {
+      headers: authHeaders(),
+    });
 
-const show = async (hootId) => {
-    try {
-        const res = await fetch(`${BASE_URL}/${hootId}`, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`,
-            },
-        })
-        return res.json()
-    } catch (err) {
-        console.log(err)
-    }
-}
+    const data = await res.json();
+    if (!res.ok) throw new Error(data?.error || "Failed to load items");
 
-const create = async (hootFormData) => {
-    try {
-        const res = await fetch(`${BASE_URL}`, {
-            method: 'POST',
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`,
-            },
-            body: hootFormData,
-        })
-        return res.json()
-    } catch (err) {
-        console.log(err)
-    }
-}
+    return data;
+  } catch (err) {
+    console.log(err);
+    return [];
+  }
+};
 
-const createComment = async (hootId, commentFormData) => {
-    try {
-        const res = await fetch(`${BASE_URL}/${hootId}/comments`, {
-            method: 'POST',
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`,
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(commentFormData),
-        })
-        return res.json()
-    } catch (error) {
-        console.log(error)
-    }
-}
+// --------------------
+// GET ONE ITEM
+// --------------------
+const show = async (itemId) => {
+  try {
+    const res = await fetch(`${BASE_URL}/${itemId}`, {
+      headers: authHeaders(),
+    });
 
-const deleteHoot = async (hootId) => {
-    try {
-        const res = await fetch(`${BASE_URL}/${hootId}`, {
-            method: 'DELETE',
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`,
-            },
-        })
-        return res.json()
-    } catch (error) {
-        console.log(error)
-    }
-}
+    const data = await res.json();
+    if (!res.ok) throw new Error(data?.error || "Failed to load item");
 
-const updateHoot = async (hootId, hootFormData) => {
-    try {
-        const res = await fetch(`${BASE_URL}/${hootId}`, {
-            method: 'PUT',
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`,
-            },
-            body: hootFormData,
-        })
-        return res.json()
-    } catch (err) {
-        console.log(err)
-    }
-}
+    return data;
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
+};
 
-export { index, show, create, createComment, deleteHoot, updateHoot }
+// --------------------
+// CREATE ITEM
+// --------------------
+const create = async (itemFormData) => {
+  try {
+    const res = await fetch(BASE_URL, {
+      method: "POST",
+      headers: authHeaders(), // DO NOT set Content-Type when using FormData
+      body: itemFormData,
+    });
+
+    const data = await res.json();
+    if (!res.ok) throw new Error(data?.error || "Failed to create item");
+
+    return data;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};
+
+// --------------------
+// UPDATE ITEM
+// --------------------
+const updateHoot = async (itemId, itemFormData) =>
+
