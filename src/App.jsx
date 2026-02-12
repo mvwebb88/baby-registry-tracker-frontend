@@ -8,82 +8,83 @@ import Landing from "./components/Landing/Landing.jsx";
 import Dashboard from "./components/Dashboard/Dashboard.jsx";
 import { UserContext } from "./contexts/UserContext.jsx";
 
-import * as hootService from "./services/hootService.js";
+// Renamed service file (still returns items from /items)
+import * as registryService from "./services/registryService.js";
 
-import HootList from "./components/HootList/HootList.jsx";
-import HootDetails from "./components/HootDetails/HootDetails.jsx";
-import HootForm from "./components/HootForm/HootForm.jsx";
+// Renamed components
+import RegistryList from "./components/RegistryList/RegistryList.jsx";
+import RegistryDetails from "./components/RegistryDetails/RegistryDetails.jsx";
+import RegistryForm from "./components/RegistryForm/RegistryForm.jsx";
 
 const App = () => {
   const { user } = useContext(UserContext);
-  const [hoots, setHoots] = useState([]);
+  const [hoots, setHoots] = useState([]); // keeping state name for now
   const navigate = useNavigate();
 
-  const fetchAllHoots = async () => {
-    const hootsData = await hootService.index();
-    setHoots(Array.isArray(hootsData) ? hootsData : []);
+  const fetchAllItems = async () => {
+    const data = await registryService.index();
+    setHoots(Array.isArray(data) ? data : []);
   };
 
   useEffect(() => {
-    if (user) fetchAllHoots();
+    if (user) fetchAllItems();
     if (!user) setHoots([]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
-  const handleAddHoot = async (hootFormData) => {
-    const newHoot = await hootService.create(hootFormData);
-
-    // safest update pattern
-    setHoots((prev) => [newHoot, ...prev]);
-
-    // optional: refresh from server to guarantee latest
-    // await fetchAllHoots();
-
-    navigate("/hoots");
+  // CREATE
+  const handleAddHoot = async (formData) => {
+    const newItem = await registryService.create(formData);
+    setHoots((prev) => [newItem, ...prev]);
+    navigate("/items");
   };
 
+  // DELETE
   const handleDeleteHoot = async (hootId) => {
-    const deleted = await hootService.deleteHoot(hootId);
-
-    setHoots((prev) => prev.filter((h) => h.id !== deleted.id));
-
-    // optional: refresh from server
-    // await fetchAllHoots();
-
-    navigate("/hoots");
+    const deletedItem = await registryService.deleteHoot(hootId);
+    setHoots((prev) => prev.filter((item) => item.id !== deletedItem.id));
+    navigate("/items");
   };
 
-  const handleUpdateHoot = async (hootId, hootFormData) => {
-    const updated = await hootService.updateHoot(hootId, hootFormData);
-
-    setHoots((prev) => prev.map((h) => (h.id === updated.id ? updated : h)));
-
-    // optional: refresh from server
-    // await fetchAllHoots();
-
-    navigate(`/hoots/${hootId}`);
+  // UPDATE
+  const handleUpdateHoot = async (hootId, formData) => {
+    const updatedItem = await registryService.updateHoot(hootId, formData);
+    setHoots((prev) =>
+      prev.map((item) => (item.id === updatedItem.id ? updatedItem : item))
+    );
+    navigate(`/items/${hootId}`);
   };
 
   return (
     <>
       <NavBar />
+
       <Routes>
         <Route path="/" element={user ? <Dashboard /> : <Landing />} />
 
         {user ? (
           <>
-            <Route path="/hoots" element={<HootList hoots={hoots} />} />
+            {/* LIST */}
+            <Route path="/items" element={<RegistryList hoots={hoots} />} />
+
+            {/* SHOW */}
             <Route
-              path="/hoots/:hootId"
-              element={<HootDetails handleDeleteHoot={handleDeleteHoot} />}
+              path="/items/:hootId"
+              element={
+                <RegistryDetails handleDeleteHoot={handleDeleteHoot} />
+              }
             />
+
+            {/* CREATE */}
             <Route
-              path="/hoots/new"
-              element={<HootForm handleAddHoot={handleAddHoot} />}
+              path="/items/new"
+              element={<RegistryForm handleAddHoot={handleAddHoot} />}
             />
+
+            {/* EDIT */}
             <Route
-              path="/hoots/:hootId/edit"
-              element={<HootForm handleUpdateHoot={handleUpdateHoot} />}
+              path="/items/:hootId/edit"
+              element={<RegistryForm handleUpdateHoot={handleUpdateHoot} />}
             />
           </>
         ) : (
@@ -98,4 +99,5 @@ const App = () => {
 };
 
 export default App;
+
 

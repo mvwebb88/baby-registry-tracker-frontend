@@ -12,7 +12,8 @@ const HootList = ({ hoots = [] }) => {
 
       {hoots.map((item) => (
         <article key={item.id} style={{ marginBottom: "18px" }}>
-          <Link to={`/hoots/${item.id}`}>
+          <Link to={`/items/${item.id}`}>
+
             <h2>{item.item_name}</h2>
           </Link>
 

@@ -60,7 +60,7 @@ const HootDetails = ({ handleDeleteHoot }) => {
 
           {isOwner && (
             <>
-              <Link to={`/hoots/${hootId}/edit`}>Edit</Link>{" "}
+              <Link to={`/items/${hootId}/edit`}>Edit</Link>{" "}
               <button onClick={() => handleDeleteHoot(hootId)}>Delete</button>
             </>
           )}
