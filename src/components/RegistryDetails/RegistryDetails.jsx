@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 
-import * as hootService from "../../services/hootService";
+import * as hootService from "../../services/registryService";
 import { UserContext } from "../../contexts/UserContext";
 
 import CommentForm from "../CommentForm/CommentForm";

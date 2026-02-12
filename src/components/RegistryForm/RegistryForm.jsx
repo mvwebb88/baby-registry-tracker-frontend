@@ -1,20 +1,18 @@
 // src/components/HootForm/HootForm.jsx
-// NOTE: We’re keeping the component name "HootForm" for now,
-// but it is used to create/update baby registry ITEMS.
+// NOTE: Keeping "HootForm" name for now, but this creates/updates baby registry ITEMS.
 
 import { useState, useEffect } from "react";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 
-import * as hootService from "../../services/hootService";
+import * as hootService from "../../services/registryService";
 
 const HootForm = ({ handleAddHoot, handleUpdateHoot }) => {
   const { hootId } = useParams();
 
-  // Backend expects: item_name, description, due_date, image_url (string URL)
+  // Backend expects: item_name, description, image_url (string URL)
   const [formData, setFormData] = useState({
     item_name: "",
     description: "",
-    due_date: "", // keep as string "YYYY-MM-DD" or ""
     image_url: "", // URL string (not a File yet)
   });
 
@@ -31,8 +29,6 @@ const HootForm = ({ handleAddHoot, handleUpdateHoot }) => {
       setFormData({
         item_name: itemData.item_name || "",
         description: itemData.description || "",
-        // backend returns due_date possibly as null; convert to ""
-        due_date: itemData.due_date || "",
         image_url: itemData.image_url || "",
       });
     };
@@ -53,18 +49,12 @@ const HootForm = ({ handleAddHoot, handleUpdateHoot }) => {
     data.append("item_name", formData.item_name);
     data.append("description", formData.description);
 
-    // Optional fields
-    if (formData.due_date) data.append("due_date", formData.due_date);
-
-    // IMPORTANT:
-    // Your backend currently expects image_url as a TEXT field (a URL string).
-    // It does NOT read request.files yet.
-    // So for now, we only send image_url as a string (or leave it blank).
+    // Optional: image_url (string URL)
+    // Backend currently expects image_url as TEXT (URL), NOT an uploaded file.
     if (formData.image_url) data.append("image_url", formData.image_url);
 
-    // We are not uploading imageFile yet. We'll add Cloudinary upload next.
-    // Keeping this here so you can see it’s captured:
-    // if (imageFile) { ... }  <-- later
+    // We are not uploading imageFile yet. We'll wire Cloudinary next.
+    // imageFile is captured but not sent.
 
     if (hootId) {
       handleUpdateHoot(hootId, data);
@@ -94,15 +84,6 @@ const HootForm = ({ handleAddHoot, handleUpdateHoot }) => {
           name="description"
           id="description-input"
           value={formData.description}
-          onChange={handleChange}
-        />
-
-        <label htmlFor="due_date-input">Due Date (optional)</label>
-        <input
-          type="date"
-          name="due_date"
-          id="due_date-input"
-          value={formData.due_date || ""}
           onChange={handleChange}
         />
 
@@ -144,4 +125,5 @@ const HootForm = ({ handleAddHoot, handleUpdateHoot }) => {
 };
 
 export default HootForm;
+
 
