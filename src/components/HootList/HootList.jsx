@@ -1,30 +1,31 @@
-import { Link } from "react-router-dom"
+import { useContext, useEffect, useState } from 'react'
+import { UserContext } from '../../contexts/UserContext'
+import * as userService from '../../services/userService'
 
-const HootList = ({ hoots = [] }) => {
-  if (!hoots.length) {
-    return <p>No hoots yet.</p>
-  }
+const Dashboard = () => {
+    const { user } = useContext(UserContext)
+    const [users, setUsers] = useState([])
+    useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                const fetchedUsers = await userService.index()
+                setUsers(fetchedUsers)
+            } catch (err) {
+                console.log(err)
+            }
+        }
+        if (user) fetchUsers()
+    }, [user])
 
-  return (
-    <main>
-      {hoots.map((hoot) => (
-        <article key={hoot.id}>
-          <Link to={`/hoots/${hoot.id}`}>
-            <h2>{hoot.title}</h2>
-          </Link>
-
-          <p>
-            Posted by {hoot.author_username} on{" "}
-            {new Date(hoot.created_at).toLocaleDateString()}
-          </p>
-
-          <p>{hoot.content}</p>
-        </article>
-      ))}
-    </main>
-  )
+    return (
+        <main>
+            <h1>Welcome, {user.username}</h1>
+            {users.map((item) => (
+                <p key={item.id}>{item.username}</p>
+            ))}
+        </main>
+    )
 }
-
-export default HootList
+export default Dashboard
 
 
