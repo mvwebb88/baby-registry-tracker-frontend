@@ -1,0 +1,120 @@
+/* ============================= */
+/* Registry List Page Styling   */
+/* ============================= */
+
+.container {
+  padding: 60px 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.title {
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 40px;
+  color: #1f2937;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 300px));
+  gap: 32px;
+  justify-content: center;
+}
+
+/* ============================= */
+/* Card Styling                 */
+/* ============================= */
+
+.card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(6px);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 👈 centers image + content */
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+/* ============================= */
+/* Image Styling (NEW SECTION)  */
+/* ============================= */
+
+.imageWrapper {
+  width: 85%;              /* 👈 slightly smaller than card */
+  height: 200px;           /* 👈 consistent image height */
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #f9fafb;     /* soft background if image doesn't fill */
+}
+
+.image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;     /* 👈 keeps full product visible */
+}
+
+/* ============================= */
+/* Text Content                 */
+/* ============================= */
+
+.cardTitle {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #111827;
+  text-align: center;
+}
+
+.cardMeta {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.cardPrice {
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #111827;
+  text-align: center;
+}
+
+/* ============================= */
+/* Status Badge                 */
+/* ============================= */
+
+.badge {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.needed {
+  background-color: #fde2e2;
+  color: #b91c1c;
+}
+
+.purchased {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+
+

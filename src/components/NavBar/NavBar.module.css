@@ -1,0 +1,154 @@
+/* src/components/NavBar/NavBar.module.css */
+
+.navWrap {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  padding: 14px 18px;
+}
+
+.nav {
+  max-width: 1100px;
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+
+  padding: 12px 14px;
+  border-radius: 16px;
+
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.14);
+  backdrop-filter: blur(8px);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 260px;
+  flex-wrap: wrap;
+}
+
+.brandTitle {
+  font-weight: 800;
+  letter-spacing: -0.2px;
+  color: var(--text);
+  font-size: 16px;
+}
+
+.countdownPill {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 7px 10px;
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(111, 182, 231, 0.55); /* subtle “balloon blue” border */
+}
+
+.countdownStrong {
+  font-size: 13px;
+  font-weight: 900;
+  color: var(--primary);
+  line-height: 1.1;
+}
+
+.countdownSub {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+  line-height: 1.1;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.link {
+  padding: 8px 10px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 13px;
+
+  color: var(--text);
+  background: transparent;
+  border: 1px solid transparent;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.link:hover {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.06);
+}
+
+.active {
+  background: rgba(111, 182, 231, 0.18);
+  border-color: rgba(111, 182, 231, 0.55);
+  color: var(--text);
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: flex-end;
+  min-width: 220px;
+}
+
+.userPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: 999px;
+
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+
+  background: rgba(111, 182, 231, 0.25);
+  border: 1px solid rgba(111, 182, 231, 0.55);
+  font-weight: 800;
+  font-size: 12px;
+}
+
+.button {
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-weight: 800;
+  font-size: 13px;
+
+  color: white;
+  background: var(--primary);
+  transition: background 0.2s ease, transform 0.05s ease;
+}
+
+.button:hover {
+  background: var(--primary-dark);
+}
+
+.button:active {
+  transform: translateY(1px);
+}
+

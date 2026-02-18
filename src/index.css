@@ -1,0 +1,115 @@
+/* src/index.css */
+
+/* ✅ Bubbly-but-clean font (rounded + modern) */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
+
+:root {
+  /* ✅ Blue theme */
+  --primary: #3b82f6;       /* blue */
+  --primary-dark: #2563eb;  /* darker blue */
+
+  /* ✅ Make default text black */
+  --text: #000000;
+  --muted: #374151;         /* darker muted (still readable on glass) */
+
+  --border: rgba(0, 0, 0, 0.12);
+
+  --radius: 12px;
+  --card-bg: rgba(255, 255, 255, 0.92);
+  --glass-border: rgba(0, 0, 0, 0.06);
+
+  /* Helpers */
+  --shadow: 0 14px 34px rgba(0, 0, 0, 0.14);
+  --focus-ring: 0 0 0 3px rgba(59, 130, 246, 0.25);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Arial, sans-serif;
+  color: var(--text);
+  line-height: 1.5;
+
+  /* ✅ Global background image */
+  background-image: url("./assets/signing-in-registry.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* ✅ Force all normal text black (buttons handled by their own styles) */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+li,
+label,
+small {
+  color: var(--text);
+}
+
+/* ✅ Overlay layer for readability across ALL pages */
+#root {
+  min-height: 100vh;
+
+  /* Slightly stronger overlay so black text stays readable */
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(2px);
+}
+
+/* -----------------------------
+   Global element defaults
+------------------------------ */
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+  font-family: inherit;
+  font-weight: 600;
+}
+
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 14px;
+}
+
+/* Nice focus styles (keyboard friendly) */
+:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+  border-radius: 8px;
+}
+
+
+
+
+
+
+
+
+
+
